@@ -1,34 +1,25 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import { useEffect, useState } from 'react';
 
 function App() {
   const [message, setMessage] = useState('');
 
-  // Exemplo de requisição usando fetch no React
-useEffect(() => {
-  fetch('http://localhost:5000/api')
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error('Error:', error));
-}, []);
+  useEffect(() => {
+    // Fazendo uma requisição para o backend
+    fetch('/api')  // O proxy já vai redirecionar para http://localhost:5000/api
+      .then(response => response.json())
+      .then(data => {
+        setMessage(data.message);  // Armazenando a resposta do backend
+      })
+      .catch(error => {
+        console.error('Erro na requisição:', error);
+      });
+  }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{message || "Carregando mensagem..."}</p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>{message ? message : 'Kelvissimo, O PÉ DE CANA'}</h1>
       </header>
     </div>
   );

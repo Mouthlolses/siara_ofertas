@@ -1,7 +1,14 @@
 // 
 const express = require('express');
+const cors = require('cors');  // Adicionando a importação do cors
 const app = express();
 const PORT = 5000;
+
+// Middleware para CORS (se necessário para o frontend)
+app.use(cors());
+
+// Middleware para lidar com JSON
+app.use(express.json());
 
 // Definindo uma rota básica
 app.get('/api', (req, res) => {
